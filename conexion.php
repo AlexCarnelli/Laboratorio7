@@ -21,7 +21,7 @@ if (!$conn) {
 }
 // echo "Conectado correctamente <hr>";
 
-//devuelvo la conexion
+//devuelvo la conexion  
 return $conn;
  
 }

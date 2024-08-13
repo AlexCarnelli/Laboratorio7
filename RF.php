@@ -2,12 +2,49 @@
 
 require("conexion.php");
 
-
 $con= conectar_bd();
+//comprobar que se envio un formulario por POST desde carga_datos
+if(isset($_POST["envio"])){
+
+
+    $nombre= $_POST["nombre"];
+    $apellido= $_POST["apellido"];
+    $email= $_POST["email"];
+    $contrasenia= $_POST["pass"];
+   
+
+    insertar_datos($con, $nombre, $apellido, $email, $contrasenia);
+}
+
+
+
+
+function insertar_datos($con, $nombre, $apellido, $email, $contrasenia){
+
+
+
+    $nombreCompleto= $nombre . ' '. $apellido;
+
+    $consulta_insertar= "INSERT INTO usuarios(nombrecompleto, email, pass )  VALUES( '$nombreCompleto', '$email', '$contrasenia') ";
+
+    if (mysqli_query($con, $consulta_insertar)) {
+        
+
+        consultar_datos($con);
+
+
+  } else {
+        echo "Error: " . $consulta_insertar . "<br>" . mysqli_error($con);
+  }
+
+}
 
 
 function consultar_datos($con) {
+
+
     $consulta = "SELECT * FROM usuarios";
+    
     $resultado = mysqli_query($con, $consulta);
    
     // Inicializo una variable para guardar los resultados
